@@ -9,7 +9,6 @@ terraform {
 
 
   backend "s3" {
-    bucket         = "${local.tf_target_bucket}"
     encrypt        = true
     key            = "terraform/state/terraform.tfstate"
     dynamodb_table = "terraform-lock-table"
