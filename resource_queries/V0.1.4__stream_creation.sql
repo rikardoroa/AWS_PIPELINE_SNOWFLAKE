@@ -1,0 +1,6 @@
+USE DATABASE {{ database }};
+USE SCHEMA {{ schema }};
+
+REATE OR REPLACE STREAM FIRE_INCIDENTS_STREAM
+    ON EXTERNAL TABLE all_fire_incidents
+    INSERT_ONLY = TRUE;
