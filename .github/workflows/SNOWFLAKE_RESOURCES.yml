@@ -39,7 +39,7 @@ jobs:
           -a $SNOWFLAKE_ACCOUNT \
           -u $SNOWFLAKE_USER \
           -r $SNOWFLAKE_ROLE \
-          -w $SNOWFLAKE_WAREHOUSE \
-          -c $SNOWFLAKE_DATABASE.$SNOWFLAKE_SCHEMA.CHANGE_HISTORY \
+          -w $SNOWFLAKE_WH \
+          -c $SNOWFLAKE_DB.$SNOWFLAKE_SCHEMA.CHANGE_HISTORY \
           --var $SCHEMACHANGE_VAR \
           --verbose
