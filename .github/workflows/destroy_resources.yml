@@ -24,6 +24,16 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-2
 
+      - name: Download Terraform Plan
+        uses: actions/download-artifact@v3
+        with:
+          name: tfplan
+          path: ./aws_pipeline_deployment
+
+      - name: Terraform Init
+        run: terraform init
+        working-directory: ./aws_pipeline_deployment
+
       - name: Terraform Destroy
         run: terraform destroy -auto-approve
         working-directory: ./aws_pipeline_deployment
