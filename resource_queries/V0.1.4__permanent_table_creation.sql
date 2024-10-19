@@ -69,7 +69,7 @@ CREATE OR REPLACE TABLE daily_fire_incidents (
   "latitude" FLOAT,
   "data_as_of" TIMESTAMP ,
   "data_loaded_at" TIMESTAMP 
-)
+);
 
 
 
@@ -144,4 +144,4 @@ SELECT
   $1:data_loaded_at::TIMESTAMP AS data_loaded_at
 FROM
   @FIRE_INCIDENTS_STAGE (FILE_FORMAT => REPORT_INCIDENTS_FORMAT)
-)
+);
