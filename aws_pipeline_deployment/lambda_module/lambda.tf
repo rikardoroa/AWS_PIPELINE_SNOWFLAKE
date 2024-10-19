@@ -49,7 +49,7 @@ resource "aws_scheduler_schedule" "lambda_schedule" {
   }
 
   schedule_expression = "rate(1 day)"
-  start_date = "2024-10-19T18:05:00Z"
+  start_date = "2024-10-19T22:05:00Z"
 
   target {
     arn      = aws_lambda_function.lambda_function.arn

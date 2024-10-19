@@ -70,7 +70,7 @@ resource "aws_scheduler_schedule" "step_functions_schedule" {
   }
 
   schedule_expression = "rate(1 day)"
-  start_date = "2024-10-19T18:15:00Z"
+  start_date = "2024-10-19T22:15:00Z"
 
   target {
     arn      = aws_sfn_state_machine.sfn_state_machine.arn
