@@ -1,5 +1,4 @@
-name: Destroying resources for AWS Snowflake Pipeline
-
+name: SNOWFLAKE_AWS PIPELINE RESOURCES DESTRUCTION
 on:
   workflow_dispatch:
 
