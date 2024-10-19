@@ -8,7 +8,8 @@ resource "aws_iam_role_policy" "lambda_s3_monitoring" {
 # wait 10 seconds until image aprovisioning
 resource "null_resource" "wait_for_image" {
   provisioner "local-exec" {
-    command = "powershell -Command Start-Sleep -Seconds 10"  # Esperar 10 segundos
+    # command = "powershell -Command Start-Sleep -Seconds 10"  # Esperar 10 segundos
+     command = "sleep 10"  # Esperar 10 segundos
   }
 
   depends_on = [
