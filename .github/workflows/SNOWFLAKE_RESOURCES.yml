@@ -15,7 +15,7 @@ jobs:
       SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
       SNOWFLAKE_WH: ${{  secrets.SNOWFLAKE_WH }}
       SNOWFLAKE_DB: ${{  secrets.SNOWFLAKE_DB }}
-      
+      SNOWFLAKE_SCHEMA : ${{  secrets.SNOWFLAKE_SCHEMA }}
       #variables for change scripts in JSON format : {"target_db":"DB_NAME"}
       SCHEMACHANGE_VAR: ${{ secrets.SCHEMACHANGE_VAR }}
 
