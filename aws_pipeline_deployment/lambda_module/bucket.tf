@@ -8,7 +8,7 @@ resource "aws_kms_key" "dts_kms_key" {
 }
 
 resource "aws_kms_key_policy" "bucket_kms_key" {
-  key_id = aws_kms_key.example.id
+  key_id = aws_kms_key.dts_kms_key.id
   policy = jsonencode({
     Version = "2012-10-17"
     Id      = "key-default-1"
