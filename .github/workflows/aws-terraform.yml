@@ -31,10 +31,10 @@ jobs:
         working-directory: ./aws_pipeline_deployment
 
       - name: Terraform Plan
-        run: terraform plan -out=tfplan
+        run: terraform plan
         working-directory: ./aws_pipeline_deployment
 
       - name: Terraform Apply
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-        run: terraform apply -auto-approve tfplan
+        run: terraform apply
         working-directory: ./aws_pipeline_deployment
