@@ -31,7 +31,7 @@ jobs:
         working-directory: ./aws_pipeline_deployment
 
       - name: Terraform Plan
-        run: terraform plan
+        run: terraform plan -out=tfplan
         working-directory: ./aws_pipeline_deployment
 
       - name: Terraform Apply
