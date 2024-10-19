@@ -27,7 +27,7 @@ jobs:
           aws-region: us-east-2
 
       - name: Terraform Init
-        run: terraform init
+        run: terraform init -reconfigure
         working-directory: ./aws_pipeline_deployment
 
       - name: Terraform Plan
