@@ -216,3 +216,5 @@ AS
                   "latitude",
                   "data_as_of",
                   "data_loaded_at");
+
+ALTER TASK stream_fire_incidents_data_capture RESUME;
