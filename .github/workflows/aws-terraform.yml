@@ -30,6 +30,10 @@ jobs:
         run: terraform init
         working-directory: ./aws_pipeline_deployment
 
+      - name: Destroy all resources
+        run: terraform destroy -auto-approve
+        working-directory: ./aws_pipeline_deployment
+
       - name: Terraform Plan
         run: terraform plan -out=tfplan
         working-directory: ./aws_pipeline_deployment
