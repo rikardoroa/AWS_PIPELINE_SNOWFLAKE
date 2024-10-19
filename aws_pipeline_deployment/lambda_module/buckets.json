@@ -1,0 +1,14 @@
+{
+    "buckets": [
+        {
+            "name": "dev-fire-incidents-dt"
+        },
+        {
+            "name": "dev-fire-incidents-dt-all"
+        },
+        {
+            "name": "dev-fire-incidents-dt-glue-python"
+        }
+
+    ]
+}
