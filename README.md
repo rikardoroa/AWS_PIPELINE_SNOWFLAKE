@@ -158,9 +158,15 @@ This bucket is created using the AWS CLI commands described in the installation 
             └── README.md
     ```
 1.  **__workflows__**: contains the CI/CD file to create the AWS and Snowflake Resources
-2.  **__glue_module__**: this directory have the python and terraform configuration files to deploy the Glue job, that will execute the workload to capture the incrementals updates related to the API from https://data.sfgov.org/Public-Safety/Fire-Incidents/wr8u-xric/about_data
+
+2.  **__glue_module__**: this directory have the python and terraform configuration files to deploy the Glue job, that will execute the workload to 
+capture the incrementals updates related to the API from https://data.sfgov.org/Public-Safety/Fire-Incidents/wr8u-xric/about_data
+
 3. **__lambda_module__**: this directory contains the python, docker, terraform configuration files to deploy the AWS Lambda function and several S3 buckets to store all the info related to the API Call using KMS encryption.
-4. **__aws_pipeline_deployment__**: this is the root directory that contains glue and lambda module folder, also contains the **__main.tf__** and **__versions.tf__** files that will execute and load the terraform backend configuration to detect changes once the workflow in deployed with github actions
+
+4. **__aws_pipeline_deployment__**: this is the root directory that contains glue and lambda module folder, also contains the **__main.tf__** and 
+**__versions.tf__** files that will execute and load the terraform backend configuration to detect changes once the workflow in deployed with github actions
+
 5. **__resource_queries__**: this folder contains the SQL queries to create the snowflake warehouse resources for ingest the data.
 
 
