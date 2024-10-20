@@ -2,7 +2,7 @@
 
 # AWS SNOWFLAKE PIPELINE FOR FIRE INCIDENTS DATA CAPTURE
 
-## AWS CLI INTALLATION AND BUCKET CONFIG FOR TERRAFORM
+## AWS Cli Installation and Bucket Configuration for Terraform 
 
 * 1. **__AWS CLI installation__** is important for getting and identifying automatically our credentials, to wrap our environment with our aws session config, the next step is to define the installation following this:
 
@@ -15,7 +15,7 @@
      * 3. now the final command is to establish some restrictions and to apply some policies to protect the bucket, like the following:`aws s3api put-public-access-block --bucket your_bucket --public-access-block-configuration BlockPublicAcls=true,IgnorePublicAcls=true,BlockPublicPolicy=true,RestrictPublicBuckets=true`
 
 
-## BUCKET CONFIGURATION FOR AWS GLUE AND LAMBDA RESOURCES
+## Bucket Configuration for AWS Lambda and AWS Glue Resources
 
 * 1. The **__lambda_module__** which is part of the terraform enviroment, constains a json file called **__buckets.json__**, this file also contains the names of the buckets that will be created as a part of AWS Glue and AWS Lambda pipeline process, the definition needs to be unique for each bucket or we will have and error, so is important to check if the bucket exists first, we can use the following comand to obtains a response if the bucket already exists in AWS, using aws `s3api head-bucket --bucket your_bucket`, this check can also by applied for the bucket configuration process regarding dynamo db to capture terraform state, also this is the json file that is describing the buckets:
     ```json
