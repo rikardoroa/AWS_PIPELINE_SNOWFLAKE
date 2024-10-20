@@ -13,5 +13,11 @@ variable "aws_region"{
 
 }
 
+variable "lambda_bucket"{
+  description = "Bucket to store the API Call data execute by the AWS Lambda Function"
+  type = string
+  default = "dev-fire-incidents-dt"
+
+}
 
 

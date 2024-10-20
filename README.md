@@ -169,7 +169,40 @@ bucket = "dev-fire-incidents-dt-tf-state"
 
 ## Before Workflows Execution
 
-1. [List any prerequisites or steps required before executing workflows.]
+1. Before execute the Github Actions Workflows is necessary acomplish some prerequisites:
+   - Is necessery create your Snowflake Database, Schema and Warehouse
+
+   - Create Storage Integration and Configure a Role in your AWS Console for secure access, to do so you can follow this Snowflake documentation here: https://docs.snowflake.com/en/user-guide/data-load-s3-config-storage-integration or follow this youtube video: https://www.youtube.com/watch?v=eCQTKpcOaMg
+
+   - Create and Configure a Snowflake Stage, attach the bucket in the stage configuration, like follows:
+     
+     ```sql
+        
+        CREATE OR REPLACE STAGE your_stage
+        URL='s3://your_bucket/path/'
+        DIRECTORY = ( ENABLE = TRUE,  AUTO_REFRESH = true )
+        STORAGE_INTEGRATION = your_storage_integration;
+    ```
+
+    After that do **__DESC STAGE your_stage__** and copy the SQS ARN value and create a notificacion event in the S3 Bucket Configured in the AWS Lambda Function, this step is important because the SQS will capture the new data ingested in the S3 Bucket to capture the incremental data in Snowflake, you can follow this Snowflake official documentation: https://docs.snowflake.com/en/user-guide/data-load-dirtables-auto-s3#option-1-creating-a-new-s3-event-notification
+
+
+    - Set up your Snowflake Credentials in Github as Secrets for **__ROLE__**, **__ACCOUNT__**,**__SCHEMA__**,**__DATABASE__**,**__WAREHOUSE__**,**__PASSWORD__** and **__USER__**
+
+
+    - Set up a value for **__SCHEMACHANGE_VAR__** in Github as a secret to store **__SCHEMA__**,**__DATABASE__**,**__WAREHOUSE__**, **__ROLE__** and **__BUCKET__**, for example:
+    ```json
+            {
+                "database":"your_database",
+                "schema":"your_schema",
+                "role":"arn:aws:iam::your_account_id:role/your_role_name",
+                "bucket":"your_bucket",
+                "warehouse":"your_warehouse"
+            }
+    ```
+           
+
+            
 
 ## Workflows Execution
 

@@ -29,7 +29,7 @@ resource "aws_lambda_function" "lambda_function" {
   
     environment {
     variables = {
-      bucket = "dev-fire-incidents-dt"
+      bucket =  var.lambda_bucket
       key = aws_kms_key.dts_kms_key.arn
     }
     }
