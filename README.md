@@ -66,7 +66,7 @@ The `lambda_module` in the Terraform environment contains a `buckets.json` file.
 
 - The bucket **__dev-fire-incidents-dt-glue-python__** will store the AWS Glue Job code
 
-- The bucket **__dev-fire-incidents-dt__** is configured in **__variables.tf__** file from the **__lambda_module__** as follows:
+- The bucket **__dev-fire-incidents-dt__** is env variable for the AWS Lambda Function and that value is configured in **__variables.tf__** file from the **__lambda_module__** as follows:
 
    ```hcl
         variable "lambda_bucket"{
@@ -77,7 +77,7 @@ The `lambda_module` in the Terraform environment contains a `buckets.json` file.
         }
 
     ```
-  
+- For Changing the Bucket names follow the previous validation and also follow the configuration steps described below.
 
 
 ### 2. Changing Bucket Names
