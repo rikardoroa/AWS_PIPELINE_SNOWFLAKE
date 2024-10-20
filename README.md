@@ -180,5 +180,46 @@ capture the incrementals updates related to the API from https://data.sfgov.org/
 
 ## Snowflake Schemachange
 
-1. [Provide instructions on using Snowflake Schemachange.]
+1. **__Schemachange considerations:__** is important to mention that schemachange tool expect a folder structure like the following:
+
+```shell
+(project_root)
+|
+|-- folder_1
+    |-- V1.1.1__first_change.sql
+    |-- V1.1.2__second_change.sql
+    |-- R__sp_add_sales.sql
+    |-- R__fn_get_timezone.sql
+|-- folder_2
+    |-- folder_3
+        |-- V1.1.3__third_change.sql
+        |-- R__fn_sort_ascii.sql
+```
+
+every version annotation linked to the snowflake object (table, file format, stream, etc) is a change related to that object, and schemachange tool capture the trace of the change for better practices, in that case is necessary a change of the version for the file every time that we do a change in the object, according to this is important follow those rules for each part of the file:
+
+- **Prefix**: The letter 'V' for versioned change
+- **Version**: A unique version number with dots or underscores separating as many number parts as you like
+- **Separator**: __ (two underscores)
+- **Description**: An arbitrary description with words separated by underscores or spaces (can not include two underscores)
+- **Suffix**: .sql or .sql.jinja
+
+2. **__Schemachange table creation:__** before using Github actions to deploy the objects using this tools is important to create the snowflake table to trace the changes in our enviroment, like the following:
+
+```sql
+CREATE TABLE IF NOT EXISTS CHANGE_HISTORY
+(
+    VERSION VARCHAR
+   ,DESCRIPTION VARCHAR
+   ,SCRIPT VARCHAR
+   ,SCRIPT_TYPE VARCHAR
+   ,CHECKSUM VARCHAR
+   ,EXECUTION_TIME NUMBER
+   ,STATUS VARCHAR
+   ,INSTALLED_BY VARCHAR
+   ,INSTALLED_ON TIMESTAMP_LTZ
+)
+```
+
+3. **__Snowflake Credentials:__** to deploy correctly snowflake objects with Github Actions is necessary a fully authentication with our snowflake account, in that case the definition for our credentials is very important, we can define secrets to manage the authentication to execute the flow without problems, for that is necessary have the correct values for:**__ACCOUNT__**, **__USER__**,**__ROLE__**,**__PASSWORD__**,**__WAREHOUSE__** and **__DATABASE__**
 
