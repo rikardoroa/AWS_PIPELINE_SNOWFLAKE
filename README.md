@@ -63,4 +63,10 @@
         }
     ```   
 
+## Backend Configuration for Terraform State
 
+* 1. to capture the changes in terraform every time that we add more resources to the workflow is necessary set up the backend configuration executed in the steps  related to **__AWS Cli Installation and Bucket Configuration for Terraform__**, regarding that is necessary call the  **__backend.hcl__** file that contains the bucket that is capturing the changes of the terraform state, the mentioned file has this entry:
+    ```bash
+        bucket = "dev-fire-incidents-dt-tf-state"
+    ```
+    this bucket is created by the user using the commands describe above using aws cli, this file is used to capture all the changes once we execute the workflow to create the aws resources
