@@ -70,3 +70,11 @@
         bucket = "dev-fire-incidents-dt-tf-state"
     ```
     this bucket is created by the user using the commands describe above using aws cli, this file is used to capture all the changes once we execute the workflow to create the aws resources
+
+
+## Workflows Executions
+* 1. 
+
+
+## Snowflake Schemachange 
+* 1. 
