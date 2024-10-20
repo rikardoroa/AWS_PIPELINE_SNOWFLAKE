@@ -82,7 +82,7 @@ The `lambda_module` in the Terraform environment contains a `buckets.json` file.
 
 ### 2. Changing Bucket Names
 
-To modify bucket names, update the `outputs.tf` file in the `lambda_module`:
+To modify bucket names, update the `outputs.tf` file in the `lambda_module` and the `buckets.json` file :
 
 ```hcl
 output "glue_bucket" {
