@@ -40,6 +40,7 @@
             value = aws_s3_bucket.bucket_creation["dev-fire-incidents-dt-glue-python"].id
         }
 
+
 in this case is necessary replace the name of the bucket in square brackets with the new name like this:
     
     ```tf
