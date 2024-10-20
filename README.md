@@ -38,5 +38,15 @@
         output "glue_bucket" {
             value = aws_s3_bucket.bucket_creation["dev-fire-incidents-dt-glue-python"].id
         }
+    in this case is necessary replace the name of the bucket in square brackets with the new name like this:
+    ```tf
+        output "glue_bucket" {
+            value = aws_s3_bucket.bucket_creation["my_other_bucket"].id
+        }
+* 3. **__Resources region configuration__**: for both Glue and Lambda module we have a file called **__providers__**, that contains the region value for our AWS resources, is necessary for the user configure the correct region, for this pipeline works well, this is the entry related to region in both files:
+    ```tf
+        provider "aws" {
+            region  = "us-east-2"   
+        }   
 
 
