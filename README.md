@@ -36,7 +36,7 @@ The AWS CLI is essential for managing credentials and configuring the environmen
 
    - **Create S3 Bucket for Terraform State**:
         ```bash
-        aws s3api create-bucket --bucket your_bucket --region us-east-2 --create-bucket-configuration LocationConstraint=us-east-2
+        aws s3api create-bucket --bucket your_bucket --region your_region --create-bucket-configuration LocationConstraint=your_region
         ```
         Replace `your_bucket` with a unique bucket name.
 
