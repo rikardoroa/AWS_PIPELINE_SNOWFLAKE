@@ -120,7 +120,7 @@ variable "aws_region" {
 
 ## Backend Configuration for Terraform State
 
-To capture changes in your Terraform configuration, update the `backend.hcl` file with the correct bucket name:
+To capture changes in your Terraform configuration, update the `backend.hcl` file with the correct bucket name, if you want to change, verify and check if the bucket is available, apply the previous steps , this is entry in the mentioned `backend.hcl` file:
 
 ```hcl
 bucket = "dev-fire-incidents-dt-tf-state"
