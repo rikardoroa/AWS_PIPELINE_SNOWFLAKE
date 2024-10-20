@@ -3,7 +3,7 @@ USE SCHEMA {{ schema }};
 
 CREATE OR REPLACE TASK stream_fire_incidents_data_capture
   WAREHOUSE = {{ warehouse }}
-  SCHEDULE = 'USING CRON 25 18 * * * UTC'
+  SCHEDULE = 'USING CRON 30 18 * * * UTC'
 WHEN
   SYSTEM$STREAM_HAS_DATA('FIRE_INCIDENTS_STREAM')
 AS
