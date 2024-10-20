@@ -54,12 +54,31 @@ The `lambda_module` in the Terraform environment contains a `buckets.json` file.
 ```json
 {
   "buckets": [
-      { "name": "dev-fire-incidents-dt" },
+      { "name": "dev-fire-incidents-dt" }, 
       { "name": "dev-fire-incidents-dt-all" },
       { "name": "dev-fire-incidents-dt-glue-python" }
   ]
 }
 ```
+- The bucket **__dev-fire-incidents-dt__** ingest the API Calls executed by the AWS Lambda Function, the files in this bucket, will be deleted after the glue job is executed, this will prevent keep unnesseray files in the bucket
+
+- The bucket **__dev-fire-incidents-dt-all__** store the incremental load executed by AWS Glue Job
+
+- The bucket **__dev-fire-incidents-dt-glue-python__** will store the AWS Glue Job code
+
+- The bucket **__dev-fire-incidents-dt__** is configured in **__variables.tf__** file from the **__lambda_module__** as follows:
+
+   ```hcl
+        variable "lambda_bucket"{
+            description = "Bucket to store the API Call data execute by the AWS Lambda Function"
+            type = string
+            default = "dev-fire-incidents-dt"
+
+        }
+
+    ```
+  
+
 
 ### 2. Changing Bucket Names
 
