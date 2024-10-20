@@ -17,7 +17,7 @@
 
 ## Bucket Configuration for AWS Lambda and AWS Glue Resources
 
-* 1. The **__lambda_module__** which is part of the terraform enviroment, constains a json file called **__buckets.json__**, this file also contains the names of the buckets that will be created as a part of AWS Glue and AWS Lambda pipeline process, the definition needs to be unique for each bucket or we will have and error, so is important to check if the bucket exists first, we can use the following comand to obtains a response if the bucket already exists in AWS, using aws `s3api head-bucket --bucket your_bucket`, this check can also by applied for the bucket configuration process regarding dynamo db to capture terraform state, also this is the json file that is describing the buckets:
+* 1. The **__lambda_module__** which is part of the terraform enviroment, constains a json file called **__buckets.json__**, this file also contains the names of the buckets that will be created as a part of AWS Glue and AWS Lambda pipeline process, the definition needs to be unique for each bucket or we will have and error, so is important to check if the bucket exists first, we can use the following comand to obtains a response if the bucket already exists in AWS, using aws `s3api head-bucket --bucket your_bucket`, if the response after apply the comand is:**__An error occurred (404) when calling the HeadBucket operation: Not Found__** that means that the buckets does not exists and you can create it. this check can also by applied for the bucket configuration process regarding dynamo db to capture terraform state, also this is the json file that is describing the buckets:
     ```json
                {
                 "buckets": [
@@ -33,3 +33,10 @@
 
                 ]
             }
+* 2. if the user wants to change all the buckets name, to create different ones, is necessary apply some changes in the the **__outputs.tf__** file related to the **__lambda_module__**, the file have this entry:
+    ```tf
+        output "glue_bucket" {
+            value = aws_s3_bucket.bucket_creation["dev-fire-incidents-dt-glue-python"].id
+        }
+
+
