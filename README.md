@@ -110,7 +110,54 @@ This bucket is created using the AWS CLI commands described in the installation 
 
 ## Project Description
 
-1. [Provide a detailed description of the AWS Snowflake pipeline here.]
+1. This is the project structure:
+
+# Estructura del Proyecto AWS_PIPELINE_SNOWFLAKE
+
+
+    ```bash
+            ├── .github/
+            │   └── workflows/
+            │       ├── AWS_CREATION_PIPELINE_SN.yml
+            │       ├── AWS_DESTROY_PIPELINE_SN.yml
+            │       └── SNOWFLAKE_RESOURCES.yml
+            ├── aws_pipeline_deployment/
+            │   ├── glue_module/
+            │   │   ├── glue_script/
+            │   │   │   └── GlueJobScript.py
+            │   │   ├── glue.tf
+            │   │   ├── providers.tf
+            │   │   └── variables.tf
+            │   ├── lambda_module/
+            │   │   ├── resources/
+            │   │   │   ├── python/
+            │   │   │   │   └── aws_lambda/
+            │   │   │   │       ├── api_calls.py
+            │   │   │   │       └── lambda_function.py
+            │   │   │   ├── Dockerfile
+            │   │   │   └── requirements.txt
+            │   │   ├── bucket.tf
+            │   │   ├── buckets.json
+            │   │   ├── docker.tf
+            │   │   ├── iam_role.tf
+            │   │   ├── lambda.tf
+            │   │   ├── local.tf
+            │   │   ├── outputs.tf
+            │   │   ├── providers.tf
+            │   │   └── variables.tf
+            ├── main.tf
+            ├── versions.tf
+            ├── resource_queries/
+            │   ├── V0.1.1_file_format.sql
+            │   ├── V0.1.2_external_table.sql
+            │   ├── V0.1.3_stream_creation.sql
+            │   ├── V0.1.4_permanent_table_creation.sql
+            │   ├── V0.1.5_materialized_view.sql
+            │   └── V0.1.6_task_creation.sql
+            ├── backend.hcl
+            └── README.md
+    ```
+
 
 ## Before Workflows Execution
 
