@@ -178,13 +178,13 @@ bucket = "dev-fire-incidents-dt-tf-state"
      
      ```sql
         
-        CREATE OR REPLACE STAGE your_stage
-        URL='s3://your_bucket/path/'
-        DIRECTORY = ( ENABLE = TRUE,  AUTO_REFRESH = true )
-        STORAGE_INTEGRATION = your_storage_integration;
-    ```
+            CREATE OR REPLACE STAGE your_stage
+            URL='s3://your_bucket/path/'
+            DIRECTORY = ( ENABLE = TRUE,  AUTO_REFRESH = true )
+            STORAGE_INTEGRATION = your_storage_integration;
+     ```
 
-    After that do **__DESC STAGE your_stage__** and copy the SQS ARN value and create a notificacion event in the S3 Bucket Configured in the AWS Lambda Function, this step is important because the SQS will capture the new data ingested in the S3 Bucket to capture the incremental data in Snowflake, you can follow this Snowflake official documentation: https://docs.snowflake.com/en/user-guide/data-load-dirtables-auto-s3#option-1-creating-a-new-s3-event-notification
+     After that do **__DESC STAGE your_stage__** and copy the SQS ARN value and create a notificacion event in the S3 Bucket Configured in the AWS Lambda Function, this step is important because the SQS will capture the new data ingested in the S3 Bucket to capture the incremental data in Snowflake, you can follow this Snowflake official documentation: https://docs.snowflake.com/en/user-guide/data-load-dirtables-auto-s3#option-1-creating-a-new-s3-event-notification
 
 
     - Set up your Snowflake Credentials in Github as Secrets for **__ROLE__**, **__ACCOUNT__**,**__SCHEMA__**,**__DATABASE__**,**__WAREHOUSE__**,**__PASSWORD__** and **__USER__**
