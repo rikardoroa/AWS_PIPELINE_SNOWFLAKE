@@ -5,27 +5,28 @@
 
 ### 1. AWS CLI Installation
 
-The AWS CLI is essential for automatically managing credentials and configuring the environment. Follow the steps below for installation and configuration:
+The AWS CLI is essential for managing credentials and configuring the environment. Follow the steps below for installation:
 
-1. **Install AWS CLI**: Use Homebrew to install the AWS CLI:
+1. **Install AWS CLI**:
    ```bash
    brew install awscli
    ```
 
-2. **Verify Installation**: Confirm the installation and check the AWS CLI version:
+2. **Verify Installation**:
    ```bash
    aws --version
    ```
 
-3. **Windows Installation**: For Windows users, refer to the [AWS CLI Installation Guide for Windows](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html).
+3. **Windows Installation**:
+   For Windows users, refer to the [AWS CLI Installation Guide](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html).
 
-4. **Terraform Environment Configuration**: Before running GitHub workflows for AWS resource creation with Terraform, complete the following steps:
+4. **Terraform Environment Configuration**:
    
    - **Check if the Bucket Exists**:
         ```bash
         aws s3api head-bucket --bucket your_bucket
         ```
-        If the response is: `An error occurred (404) when calling the HeadBucket operation: Not Found`, the bucket does not exist and can be created.
+        If you receive the error `An error occurred (404) when calling the HeadBucket operation: Not Found`, the bucket does not exist and can be created.
 
    - **Create DynamoDB Table for Terraform State Locking**:
         ```bash
@@ -48,7 +49,7 @@ The AWS CLI is essential for automatically managing credentials and configuring 
 
 ### 1. Bucket Creation for Lambda and Glue
 
-The `lambda_module` in the Terraform environment contains a `buckets.json` file with the following bucket names. Ensure each name is unique to avoid errors.
+The `lambda_module` in the Terraform environment contains a `buckets.json` file. Ensure each bucket name is unique to avoid errors:
 
 ```json
 {
@@ -62,7 +63,7 @@ The `lambda_module` in the Terraform environment contains a `buckets.json` file 
 
 ### 2. Changing Bucket Names
 
-If you want to modify the bucket names, update the `outputs.tf` file in the `lambda_module`:
+To modify bucket names, update the `outputs.tf` file in the `lambda_module`:
 
 ```hcl
 output "glue_bucket" {
@@ -70,7 +71,7 @@ output "glue_bucket" {
 }
 ```
 
-Replace the bucket name in the square brackets as needed:
+Replace the bucket name as necessary:
 
 ```hcl
 output "glue_bucket" {
@@ -80,7 +81,7 @@ output "glue_bucket" {
 
 ### 3. Configuring AWS Regions for Resources
 
-Both the Glue and Lambda modules contain a `providers.tf` file for region configuration. Ensure your AWS region is correctly set:
+The Glue and Lambda modules contain a `providers.tf` file for region configuration. Ensure your AWS region is set correctly:
 
 ```hcl
 provider "aws" {
@@ -88,7 +89,7 @@ provider "aws" {
 }
 ```
 
-The region is also specified in the `variables.tf` file. Update it as follows:
+Update the region in the `variables.tf` file as well:
 
 ```hcl
 variable "aws_region" {
@@ -100,75 +101,71 @@ variable "aws_region" {
 
 ## Backend Configuration for Terraform State
 
-To capture changes in your Terraform configuration, set up the backend by updating the `backend.hcl` file. Ensure the bucket name matches the one created earlier:
+To capture changes in your Terraform configuration, update the `backend.hcl` file with the correct bucket name:
 
 ```hcl
 bucket = "dev-fire-incidents-dt-tf-state"
 ```
 
-This bucket is created using the AWS CLI commands described in the installation section.
-
 ## Project Description
 
-1. This is the project structure:
+### Project Structure for AWS_PIPELINE_SNOWFLAKE Repository:
 
-# Project Structure for AWS_PIPELINE_SNOWFLAKE Repository
+```bash
+.
+├── .github/
+│   └── workflows/
+│       ├── AWS_CREATION_PIPELINE_SN.yml
+│       ├── AWS_DESTROY_PIPELINE_SN.yml
+│       └── SNOWFLAKE_RESOURCES.yml
+├── aws_pipeline_deployment/
+│   ├── glue_module/
+│   │   ├── glue_script/
+│   │   │   └── GlueJobScript.py
+│   │   ├── glue.tf
+│   │   ├── providers.tf
+│   │   └── variables.tf
+│   ├── lambda_module/
+│   │   ├── resources/
+│   │   │   ├── python/
+│   │   │   │   └── aws_lambda/
+│   │   │   │       ├── api_calls.py
+│   │   │   │       └── lambda_function.py
+│   │   │   ├── Dockerfile
+│   │   │   └── requirements.txt
+│   │   ├── bucket.tf
+│   │   ├── buckets.json
+│   │   ├── docker.tf
+│   │   ├── iam_role.tf
+│   │   ├── lambda.tf
+│   │   ├── local.tf
+│   │   ├── outputs.tf
+│   │   ├── providers.tf
+│   │   └── variables.tf
+├── main.tf
+├── versions.tf
+├── resource_queries/
+│   ├── V0.1.1_file_format.sql
+│   ├── V0.1.2_external_table.sql
+│   ├── V0.1.3_stream_creation.sql
+│   ├── V0.1.4_permanent_table_creation.sql
+│   ├── V0.1.5_materialized_view.sql
+│   └── V0.1.6_task_creation.sql
+├── backend.hcl
+└── README.md
+```
 
+### Key Directories:
 
-    ```bash
-            ├── .github/
-            │   └── workflows/
-            │       ├── AWS_CREATION_PIPELINE_SN.yml
-            │       ├── AWS_DESTROY_PIPELINE_SN.yml
-            │       └── SNOWFLAKE_RESOURCES.yml
-            ├── aws_pipeline_deployment/
-            │   ├── glue_module/
-            │   │   ├── glue_script/
-            │   │   │   └── GlueJobScript.py
-            │   │   ├── glue.tf
-            │   │   ├── providers.tf
-            │   │   └── variables.tf
-            │   ├── lambda_module/
-            │   │   ├── resources/
-            │   │   │   ├── python/
-            │   │   │   │   └── aws_lambda/
-            │   │   │   │       ├── api_calls.py
-            │   │   │   │       └── lambda_function.py
-            │   │   │   ├── Dockerfile
-            │   │   │   └── requirements.txt
-            │   │   ├── bucket.tf
-            │   │   ├── buckets.json
-            │   │   ├── docker.tf
-            │   │   ├── iam_role.tf
-            │   │   ├── lambda.tf
-            │   │   ├── local.tf
-            │   │   ├── outputs.tf
-            │   │   ├── providers.tf
-            │   │   └── variables.tf
-            ├── main.tf
-            ├── versions.tf
-            ├── resource_queries/
-            │   ├── V0.1.1_file_format.sql
-            │   ├── V0.1.2_external_table.sql
-            │   ├── V0.1.3_stream_creation.sql
-            │   ├── V0.1.4_permanent_table_creation.sql
-            │   ├── V0.1.5_materialized_view.sql
-            │   └── V0.1.6_task_creation.sql
-            ├── backend.hcl
-            └── README.md
-    ```
-1.  **__workflows__**: contains the CI/CD file to create the AWS and Snowflake Resources
+1. **workflows**: CI/CD files to create AWS and Snowflake resources.
 
-2.  **__glue_module__**: this directory have the python and terraform configuration files to deploy the Glue job, that will execute the workload to 
-capture the incrementals updates related to the API from https://data.sfgov.org/Public-Safety/Fire-Incidents/wr8u-xric/about_data
+2. **glue_module**: Contains Python and Terraform files to deploy the Glue job, capturing incremental updates from the Fire Incidents API.
 
-3. **__lambda_module__**: this directory contains the python, docker, terraform configuration files to deploy the AWS Lambda function and several S3 buckets to store all the info related to the API Call using KMS encryption.
+3. **lambda_module**: Contains Python, Docker, and Terraform configuration files to deploy AWS Lambda and S3 buckets for API data storage with KMS encryption.
 
-4. **__aws_pipeline_deployment__**: this is the root directory that contains glue and lambda module folder, also contains the **__main.tf__** and 
-**__versions.tf__** files that will execute and load the terraform backend configuration to detect changes once the workflow in deployed with github actions
+4. **aws_pipeline_deployment**: The root directory containing Glue and Lambda modules. It also includes **main.tf** and **versions.tf** for detecting changes when workflows are deployed via GitHub Actions.
 
-5. **__resource_queries__**: this folder contains the SQL queries to create the snowflake warehouse resources for ingest the data.
-
+5. **resource_queries**: SQL queries to create Snowflake resources for data ingestion.
 
 ## Before Workflows Execution
 
@@ -180,46 +177,57 @@ capture the incrementals updates related to the API from https://data.sfgov.org/
 
 ## Snowflake Schemachange
 
-1. **__Schemachange considerations:__** is important to mention that schemachange tool expect a folder structure like the following:
+### 1. Schemachange Considerations
 
-```shell
+The Schemachange tool expects a folder structure similar to the following:
+
+```bash
 (project_root)
-|
-|-- folder_1
-    |-- V1.1.1__first_change.sql
-    |-- V1.1.2__second_change.sql
-    |-- R__sp_add_sales.sql
-    |-- R__fn_get_timezone.sql
-|-- folder_2
-    |-- folder_3
-        |-- V1.1.3__third_change.sql
-        |-- R__fn_sort_ascii.sql
+├── folder_1
+│   ├── V1.1.1__first_change.sql
+│   ├── V1.1.2__second_change.sql
+│   ├── R__sp_add_sales.sql
+│   └── R__fn_get_timezone.sql
+├── folder_2
+│   └── folder_3
+│       ├── V1.1.3__third_change.sql
+│       └── R__fn_sort_ascii.sql
 ```
 
-every version annotation linked to the snowflake object (table, file format, stream, etc) is a change related to that object, and schemachange tool capture the trace of the change for better practices, in that case is necessary a change of the version for the file every time that we do a change in the object, according to this is important follow those rules for each part of the file:
+Each version annotation is linked to a Snowflake object (table, file format, stream, etc.) and must follow versioning best practices:
 
-- **Prefix**: The letter 'V' for versioned change
-- **Version**: A unique version number with dots or underscores separating as many number parts as you like
-- **Separator**: __ (two underscores)
-- **Description**: An arbitrary description with words separated by underscores or spaces (can not include two underscores)
-- **Suffix**: .sql or .sql.jinja
+- **Prefix**: 'V' for versioned changes.
+- **Version**: A unique version number.
+- **Separator**: Two underscores (`__`).
+- **Description**: An arbitrary description with words separated by underscores or spaces (cannot include two underscores).
+- **Suffix**: `.sql` or `.sql.jinja`.
 
-2. **__Schemachange table creation:__** before using Github actions to deploy the objects using this tools is important to create the snowflake table to trace the changes in our enviroment, like the following:
+### 2. Schemachange Table Creation
+
+Before using GitHub Actions to deploy objects via Schemachange, create the following Snowflake table to track changes:
 
 ```sql
 CREATE TABLE IF NOT EXISTS CHANGE_HISTORY
 (
-    VERSION VARCHAR
-   ,DESCRIPTION VARCHAR
-   ,SCRIPT VARCHAR
-   ,SCRIPT_TYPE VARCHAR
-   ,CHECKSUM VARCHAR
-   ,EXECUTION_TIME NUMBER
-   ,STATUS VARCHAR
-   ,INSTALLED_BY VARCHAR
-   ,INSTALLED_ON TIMESTAMP_LTZ
-)
+    VERSION VARCHAR,
+    DESCRIPTION VARCHAR,
+    SCRIPT VARCHAR,
+    SCRIPT_TYPE VARCHAR,
+    CHECKSUM VARCHAR,
+    EXECUTION_TIME NUMBER,
+    STATUS VARCHAR,
+    INSTALLED_BY VARCHAR,
+    INSTALLED_ON TIMESTAMP_LTZ
+);
 ```
 
-3. **__Snowflake Credentials:__** to deploy correctly snowflake objects with Github Actions is necessary a fully authentication with our snowflake account, in that case the definition for our credentials is very important, we can define secrets to manage the authentication to execute the flow without problems, for that is necessary have the correct values for:**__ACCOUNT__**, **__USER__**,**__ROLE__**,**__PASSWORD__**,**__WAREHOUSE__** and **__DATABASE__**
+### 3. Snowflake Credentials
 
+To successfully deploy Snowflake objects via GitHub Actions, ensure full authentication using the following credentials:
+
+- **ACCOUNT**
+- **USER**
+- **ROLE**
+- **PASSWORD**
+- **WAREHOUSE**
+- **DATABASE**
