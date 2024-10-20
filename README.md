@@ -48,10 +48,19 @@
             value = aws_s3_bucket.bucket_creation["my_other_bucket"].id
         }
 
-* 3. **__Resources region configuration__**: for both Glue and Lambda module we have a file called **__providers__**, that contains the region value for our AWS resources, is necessary for the user configure the correct region, for this pipeline works well, this is the entry related to region in both files:
+* 3. **__Resources region configuration__**: for both Glue and Lambda module we have a file called **__providers__**, that contains the region value for our AWS resources, replace this entry for your actual AWS Region in both files:
     ```tf
         provider "aws" {
             region  = "us-east-2"   
-        }   
+        }
+    ```
+    the region entry is also present in **__variables.tf__** file for the **__lambda__module__**, also replace the value of your AWS region in this entry:
+    ```tf
+        variable "aws_region"{
+            description = "aws region"
+            type = string
+            default = "us-east-2"
+        }
+    ```   
 
 
