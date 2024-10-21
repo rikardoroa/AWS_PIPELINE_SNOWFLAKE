@@ -226,9 +226,10 @@ bucket = "dev-fire-incidents-dt-tf-state"
                 "warehouse":"your_warehouse"
             }
     ```
-           
+    - Create the CHANGE_HISTORY table in Snowflake with in your current Datababase and Warehouse that you are using for the project
 
-            
+    - Set up the Dates for Both Event Bridge Schedulers related to AWS Glue Job and AWS Lambda Function, those Dates entries are located in **__glue.tf__** and **__lambda.tf files__**
+           
 
 ## Workflows Execution
 
