@@ -1,6 +1,13 @@
 
 # AWS Snowflake Pipeline for Fire Incidents Data Capture
 
+## Project Description
+
+### 1. Project Features
+
+This project uses several AWS Services and Snowflake as Datawarehouse to capture incremental data from https://data.sfgov.org/Public-Safety/Fire-Incidents/wr8u-xric/about_data,
+the final output is a materialized view from a permanent table, that will be the primary object to create the several necessary dimensions.
+
 ## AWS CLI Installation and Bucket Configuration for Terraform
 
 ### 1. AWS CLI Installation
